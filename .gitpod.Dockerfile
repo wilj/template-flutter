@@ -7,7 +7,10 @@ ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_
 
 # Install Open JDK for android and other dependencies
 USER root
-RUN apt-key adv --keyserver http://download.opensuse.org --recv-keys 02456C79B2FD48BF \
+
+RUN rm -fv '/etc/apt/trusted.gpg.d/home:ungoogled_chromium.asc' \
+    && wget -nv https://download.opensuse.org/repositories/home:ungoogled_chromium/Ubuntu_Focal/Release.key -O - | apt-key add - \
+    && apt update \
     && install-packages openjdk-8-jdk -y \
         libgtk-3-dev \
         libnss3-dev \
